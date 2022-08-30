@@ -301,3 +301,266 @@ div {
   → 포커스가 적용되는 선택자에 적용 가능
 
   ex ) input 요소
+
+
+
+
+
+
+
+# 🗓️220830
+
+### 🌐 선택자(Selector)
+
+3️⃣ **가상 클래스 선택자 (이어서)**
+
+- first child : 선택자 ABC가 형제 요소중 첫째라면 선택
+
+  `ABC:first-child`
+
+  ```html
+  <div class="fruits">
+  	<span>딸기</span>
+  	<span>수박</span>
+  	<div>오렌지</div>
+  	<p>망고</p>
+  	<h3>사과</h3>
+  </div>
+  ```
+
+  ```css
+  .fruits span:first-child{
+  	color: red;
+  }
+  ```
+
+- last child : 선택자 ABC가 형제 요소중 막내라면 선택
+
+  `ABC:last-child`
+
+  ```css
+  .fruits h3:last-child {
+  	color: red;
+  }
+  ```
+
+  ```html
+  <div class="fruits">
+  	<span>딸기</span>
+  	<span>수박</span>
+  	<div>오렌지</div>
+  	<p>망고</p>
+  	<h3>사과</h3>
+  </div>
+  ```
+
+- nth-child : 선택자 ABC가 형제 요소중 n째라면 선택
+
+  `ABC:nth-child(n)`
+
+  ```css
+  .fruits *:nth-child(2) {
+  	color: red;
+  }
+  ```
+
+  ```html
+  <div class="fruits">
+  	<span>딸기</span>
+  	<span>수박</span>
+  	<div>오렌지</div>
+  	<p>망고</p>
+  	<h3>사과</h3>
+  </div>
+  ```
+
+  👉(n) 자리에 2n, 2n+1을 대입해 짝수번째, 홀수번째 요소를 중복 선택할 수 있다
+
+- 부정선택자 not : 선택자 XYZ가 아닌 ABC 요소 선택
+
+  `ABC:not(XYZ)`
+
+  ```css
+  fruits *:not(span){
+  	color: red;
+  }
+  ```
+
+  ```html
+  <div class="fruits">
+  	<span>딸기</span>
+  	<span>수박</span>
+  	<div>오렌지</div>
+  	<p>망고</p>
+  	<h3>사과</h3>
+  </div>
+  ```
+
+  → 제외의 개념으로 사용한다
+
+4️⃣ **가상 요소 선택자(::)**
+
+- Before : 선택자 ABC요소의 **내부 앞**에 내용을 삽입
+
+  (인라인 요소)
+
+  `ABC::before`
+
+  ```html
+  <div class="box">
+  							
+  	Content!
+  
+  </div>
+  ```
+
+  ```css
+  .box::before {
+  	content: "앞!";
+  }
+  ```
+
+- After : 선택자 ABC요소의 **내부 뒤**에 내용을 삽입
+
+  `ABC::after`
+
+  ```html
+  <div class="box">
+  	
+  	Content!
+  							
+  </div>
+  ```
+
+  ```css
+  .box::after {
+  	content: "뒤!";
+  }
+  ```
+
+⚠️ before / after는 **content 속성**과 반드시 한 세트로 사용
+
+👉**Why 가상 요소 선택자?**
+
+: CSS를 통해 요소 위치를 조정할 수 있어 HTML의 내용을 단순화 할 수 있다
+
+5️⃣ **속성 선택자([])**
+
+- `[ABC]` : 속성 ABC를 포함한 요소 선택
+
+  ```html
+  <input type="text" value="devjenni">
+  <input type="password" value="1234">
+  <input type="text" value="ABCD" disabled>
+  ```
+
+  ```css
+  [disabled] {
+  	color: red;
+  }
+  ```
+
+- `[ABC="XYZ"]` : 속성 ABC를 포함하고 값이 XYZ인 요소 선택
+
+  ```css
+  [type="password"] {
+  	color: red;
+  }
+  ```
+
+
+
+### 🌐 스타일 상속
+
+```html
+<div class="ecosystem"> 생태계
+	<div class="animal"> 동물
+		<div class="tiger">호랑이</div>
+		<div class="lion">사자</div>
+		<div class="elephant">코끼리</div>
+	</div>
+    <div>
+        식물
+    </div>
+</div>
+.animal {
+	color: red;
+}
+```
+
+🖥️ **출력화면**
+
+```html
+생태계
+동물(red)
+호랑이(red)
+사자(red)
+코끼리(red)
+식물
+```
+
+👉 animal(부모)에 적용한 것은 아래 자식(하위)요소에도 적용된다 == 상속!
+
+👉 **글자, 문자관련 속성**이 상속되는 경우가 많으니 적용 시 주의해야 한다
+
+👉 강제 상속
+
+: CSS 문자,글자관련 속성에 **inherit**을 적용해 부모요소의 속성을 강제 상속할 수 있다
+
+
+
+### 🌐 선택자 우선순위
+
+👉**우선순위?**
+
+: 같은 요소가 여러 선언의 대상이 된 경우, 어떤 선언의 CSS속성을 우선 적용할지 결정하는 방법
+
+1️⃣ 점수가 높은 선언이 우선
+
+2️⃣ 동일 점수의 경우, 가장 마지막에 해석된 선언이 우선
+
+```css
+<div
+	id="color_yello" 
+	class="color_green" 
+	style="color: orange;">
+Hello world!
+</div>
+div {
+	color: red !important;
+}
+
+#color_yellow {
+	color: yello;
+}
+
+.color_green {
+	color: green;
+}
+
+div {
+	color: blue;
+}
+
+* {
+	color: darkblue;
+}
+
+body {
+	color: violet;
+}
+```
+
+🖥️ **출력 결과**
+
+Hello world! (빨강)
+
+👉 **Why?**
+
+- 인라인선언(div style=””) : 1000점
+- **!important :**  999999999999점
+- ID 선택자 : 100점
+- class 선택자 : 10점
+- 태그 선택자 : 1점
+- 전체 선택자 : 0점
+- body : 상속 X(별도 점수 없음)

@@ -1,0 +1,83 @@
+
+
+.box {
+
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+}
+
+
+/* 가상요소 선택자 */
+.box::before {
+
+  content: "Before";
+
+}
+
+/* 인라인요소 -> 블럭요소 적용하기(가상요소 선택자) */
+
+.box::after {
+  content: "";
+  /* in-line -> block */
+  display: block; 
+  width: 30px;
+  height: 30px;
+  background-color: lightgrey;
+
+}
+
+
+/* 속성 선택자 */
+
+[type="text"] {
+
+  background-color: lightblue;
+
+}
+
+[data-fruitName] {
+  color: beige;
+}
+
+
+
+/* 강제 상속 */
+.parent {
+  width: 300px;
+  height: 200px;
+  background-color: lavender;
+}
+
+.child {
+  width: 100px;
+  /* 누락을 방지하기 위해 자식요소에 inherit으로 강제 상속하기 */
+  height: inherit;
+  background-color: purple;
+  position: fixed;
+  top: 100px;
+  right: 10px;
+}
+
+
+
+/* 선택자 우선순위 */
+
+div {
+  font-size: 70px;
+}
+
+
+.hello {
+  color: red;
+}
+
+#hello {
+  color: lightpink;
+}
+/* 아이디는 고유하기 때문에 우선순위가 높다 */
+
+div.hello {
+  color: lightgreen !important;
+}
+/* 동일 점수라면, 해석이 더 늦게되는 경우가 최종 출력 */
